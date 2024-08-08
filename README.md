@@ -5,7 +5,7 @@
 - Tool factory
 
 ### Setup
-- Run a sentry open source compatible server like [glitchtip](https://glitchtip.com/)
+- Run a sentry open source compatible server like [glitchtip](https://glitchtip.com/) (Note: this may or may not work with sentry.com)
 - Add the following to your `moqui-framework` `myaddons.xml` https://github.com/acetousk/moqui-framework/blob/c58148dd5b6b185a1d15f70ef4e33b018a6ba9cb/myaddons.xml#L36 
 ```xml
 <component group="acetousk" name="sentry" branch="master"/>
