@@ -58,8 +58,6 @@ final class SentryToolFactory implements ToolFactory<SentryClient> {
 
         sentry_dsn = System.getProperty("sentry_dsn") ?: System.getenv("sentry_dsn")
 
-        logger.warn("Sentry DSN: " + sentry_dsn)
-
         if (!sentry_dsn) {
             logger.error("Sentry DSN not found. Set the sentry_dsn property in a MoquiConf.xml or environment variable")
             return
@@ -120,10 +118,11 @@ final class SentryToolFactory implements ToolFactory<SentryClient> {
                     .withLevel(Event.Level.valueOf(event.level.toString())).withLogger(event.loggerName)
                     .withServerName(localAddr.hostName).withTimestamp(new java.util.Date(event.timeMillis))
                     .withEnvironment(System.getProperty("instance_purpose"))
-                    .withExtra("thread_name", event.threadName).withExtra("thread_id", event.threadId)
-                    .withExtra("thread_priority", event.threadPriority)
+                    .withTag("thread_name", event.threadName).withTag("thread_id", event.threadId as String)
+                    .withTag("thread_priority", event.threadPriority as String)
                     .withTag("user_id", msgMap.get("user_id") as String)
                     .withTag("visitor_id", msgMap.get("visitor_id") as String)
+
             )
         }
         static Map makeThrowableMap(Throwable thrown) {
